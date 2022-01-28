@@ -1,5 +1,7 @@
-<app-nav></app-nav>
+<app-nav *ngIf="(isLoggedIn | async)"></app-nav>
 
-<app-sidebar></app-sidebar>
+<app-sidebar *ngIf="(isLoggedIn | async)"></app-sidebar>
 
-<router-outlet></router-outlet>
+<div id="content-wrapper" [class.fullscreen]="!(isLoggedIn | async)">
+  <router-outlet></router-outlet>
+</div>
