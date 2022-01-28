@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@import "~src/assets/font/fonts.scss";
+@import "~src/assets/scss/custom-palettes.scss";
+
+@include mat.core();
+
+$directorsview-primary: mat.define-palette($primary-palette);
+$directorsview-accent: mat.define-palette($accent-palette);
+$directorsview-warn: mat.define-palette(mat.$red-palette);
+
+$directorsview-theme: mat.define-light-theme((
+  color: (
+    primary: $directorsview-primary,
+    accent: $directorsview-accent,
+    warn: $directorsview-warn,
+  )
+));
+
+@include mat.all-component-themes($directorsview-theme);
+
+:root {
+  --primary-color: #119da4;
+  --accent-color: #c3423f;
+  --black: #080708;
+  --box-shadow: 1px 1px 9px 0 #dbdbdb;
+  --border-radius: 5px;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0 auto;
+  font-family: 'Manrope-Regular', "Helvetica Neue", sans-serif;
+}
