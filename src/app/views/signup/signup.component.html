@@ -1,0 +1,66 @@
+<header>
+  <img src="/assets/images/logo.svg" alt="Logo">
+
+  <h1>DirectorsView</h1>
+</header>
+
+<!--// password-->
+<!--// name-->
+<!--// first und lastname-->
+<!--// email-->
+
+<form (ngSubmit)="submit()" [formGroup]="formGroup">
+  <mat-select [(value)]="selectedOption" (selectionChange)="onSelectionMessage()">
+    <mat-option *ngFor="let option of selectOptions" [value]="option">
+      {{ option }}
+    </mat-option>
+  </mat-select>
+
+  <mat-form-field *ngIf="selectedOption === 'Personal'">
+    <mat-label>Firstname</mat-label>
+    <input matInput placeholder="Firstname" type="text" name="firstName" formControlName="firstName">
+
+    <mat-error *ngIf="formGroup.get('firstName')?.hasError('required')">Firstname must not be empty</mat-error>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="selectedOption === 'Personal'">
+    <mat-label>Lastname</mat-label>
+    <input matInput placeholder="Lastname" type="text" name="lastName" formControlName="lastName">
+
+    <mat-error *ngIf="formGroup.get('lastName')?.hasError('required')">Lastname must not be empty</mat-error>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="selectedOption === 'Company'">
+    <mat-label>Company Name</mat-label>
+    <input matInput placeholder="Company Name" type="text" name="companyName" formControlName="companyName">
+
+    <mat-error *ngIf="formGroup.get('companyName')?.hasError('required')">Company name must not be empty</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>E-Mail Address</mat-label>
+    <input matInput placeholder="Email" type="email" name="email" formControlName="email">
+
+    <mat-error *ngIf="formGroup.get('email')?.hasError('required')">E-Mail must not be empty</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Password" type="password" name="password" formControlName="password">
+
+    <mat-error *ngIf="formGroup.get('password')?.hasError('required')">Password must not be empty</mat-error>
+  </mat-form-field>
+
+  <div class="button-wrapper">
+    <button mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!formGroup.valid">
+      Sign up
+    </button>
+  </div>
+</form>
+
+<mat-error *ngIf="responseMessage">{{  responseMessage }}</mat-error>
+
+<p>Already have an account? <a routerLink="/signin" class="link">Sign in now!</a></p>
