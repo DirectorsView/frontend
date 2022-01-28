@@ -1,0 +1,49 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding-top: 10vh;
+}
+
+header {
+  width: 80%;
+  margin-bottom: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  user-select: none;
+
+  img {
+    width: 10%;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 2em;
+  }
+}
+
+form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  mat-form-field, .button-wrapper, mat-select {
+    width: 20%;
+  }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.link {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
