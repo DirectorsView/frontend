@@ -1,0 +1,9 @@
+<div *ngFor="let p of getActiveProjects(projects || [])" class="project">
+  <h2>{{ p.name }}</h2>
+  <span>{{ p.description }}</span>
+
+  <div>
+    <mat-icon>date_range</mat-icon>
+    <span>{{ p.startTime | date: 'dd.MM.yyyy' }} - {{ p.endTime | date: 'dd.MM.yyyy' }}</span>
+  </div>
+</div>
