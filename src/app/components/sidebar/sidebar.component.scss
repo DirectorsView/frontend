@@ -4,3 +4,14 @@
   align-items: center;
   flex-direction: column;
 }
+
+mat-list-item {
+  border-radius: 15px;
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+  transition: color 150ms ease-in-out;
+
+  &:hover {
+    color: var(--primary-color);
+  }
+}
