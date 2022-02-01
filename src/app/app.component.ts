@@ -1,17 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Observable } from 'rxjs';
+import { Project } from './models/models';
+import { ProjectService } from './services/project.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: [ './app.component.scss' ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   public readonly isLoggedIn: Observable<boolean>;
+  public projects: Project[] | null;
 
-  constructor(private readonly auth: AuthService) {
+  constructor(private readonly auth: AuthService,
+              private readonly projectService: ProjectService) {
     this.isLoggedIn = this.auth.isLoggedInAsObservable;
+    this.projects = null;
+  }
+
+  public ngOnInit(): void {
+    this.projectService.fetchProjects();
+    this.projectService.getProjects().subscribe(projects => this.projects = projects);
   }
 }
