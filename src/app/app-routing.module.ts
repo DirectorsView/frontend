@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+import { AuthGuard } from './services/guard/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
-    component: AppComponent
+    path: 'projects',
+    loadChildren: () => import('./views/project/project.module').then(m => m.ProjectModule),
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'signin',
@@ -17,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'projects',
     pathMatch: 'full'
   }
 ];
