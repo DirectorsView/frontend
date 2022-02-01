@@ -7,6 +7,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './components/nav/nav.component';
 import { MatIconModule } from '@angular/material/icon';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -17,10 +21,13 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    MatListModule,
+    MatFormFieldModule
   ],
-  providers: [],
+  providers: [ { provide: LocationStrategy, useClass: HashLocationStrategy } ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {
