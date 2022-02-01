@@ -29,18 +29,30 @@ export class SignupComponent implements OnInit {
   }
 
   public submit(): void {
+    let promise: Promise<string>;
+
     if (this.formGroup.valid) {
-      this.auth.signUp(
-        this.formGroup.value.email,
-        this.formGroup.value.password,
-        this.formGroup.value.firstName,
-        this.formGroup.value.lastName,
-        this.formGroup.value.companyName,
-        this.selectedOption
-      ).then(() => {
+      if (this.selectedOption === 'Personal') {
+        promise = this.auth.signUpAsPerson(
+          this.formGroup.value.email,
+          this.formGroup.value.password,
+          this.formGroup.value.firstName,
+          this.formGroup.value.lastName
+        );
+      } else if (this.selectedOption === 'Company') {
+        promise = this.auth.signUpAsCompany(
+          this.formGroup.value.email,
+          this.formGroup.value.password,
+          this.formGroup.value.companyName
+        );
+      } else {
+        throw new Error('Invalid option');
+      }
+
+      promise.then(() => {
         this.router.navigateByUrl('/');
-      }).catch(message => {
-        this.responseMessage = message;
+      }).catch((message: any) => {
+        this.responseMessage = message.message;
       });
     }
   }
