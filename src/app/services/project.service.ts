@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Project } from '../models/models';
+import { Person, Project } from '../models/models';
 import { BackendService } from './backend.service';
 
 @Injectable({
@@ -27,5 +27,13 @@ export class ProjectService {
 
   public getProjects(): Observable<Project[]> {
     return this.projectsSubject;
+  }
+
+  public getProject(id: number): Project | null {
+    return this.projectsSubject.value.find(project => project.id === id) || null;
+  }
+
+  public getProjectMembers(id: number): Promise<Person[]> {
+    return this.backend.get<Person[]>(`/project/${ id }/members`);
   }
 }
