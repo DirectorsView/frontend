@@ -11,12 +11,14 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { UnderConstructionComponent } from './components/under-construction/under-construction.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
-    NavComponent
+    NavComponent,
+    UnderConstructionComponent
   ],
   imports: [
     BrowserModule,
