@@ -1,4 +1,4 @@
-<div *ngFor="let p of getActiveProjects(projects || [])" class="project">
+<div *ngFor="let p of getActiveProjects(projects || [])" [routerLink]="p.id.toString()" class="project">
   <h2>{{ p.name }}</h2>
   <span>{{ p.description }}</span>
 

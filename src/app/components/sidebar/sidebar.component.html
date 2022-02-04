@@ -3,12 +3,15 @@
 <div *ngIf="sortedProjects">
   <mat-list>
     <mat-hint>Active</mat-hint>
-    <mat-list-item *ngFor="let p of sortedProjects.active">{{ p.name }}</mat-list-item>
+    <mat-list-item *ngFor="let p of sortedProjects.active"
+                   routerLink="/projects/{{ p.id }}">{{ p.name }}</mat-list-item>
 
     <mat-hint>Scheduled</mat-hint>
-    <mat-list-item *ngFor="let p of sortedProjects.scheduled">{{ p.name }}</mat-list-item>
+    <mat-list-item *ngFor="let p of sortedProjects.scheduled"
+                   routerLink="/projects/{{ p.id }}">{{ p.name }}</mat-list-item>
 
     <mat-hint>Inactive</mat-hint>
-    <mat-list-item *ngFor="let p of sortedProjects.inactive">{{ p.name }}</mat-list-item>
+    <mat-list-item *ngFor="let p of sortedProjects.inactive"
+                   routerLink="/projects/{{ p.id }}">{{ p.name }}</mat-list-item>
   </mat-list>
 </div>
