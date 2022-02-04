@@ -27,12 +27,21 @@ export class AuthService {
   }
 
   public signIn(email: string, password: string): Promise<string> {
-    // TODO: implement backend request and user authentication
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
+      this.backend.post<any>('/account/authenticate', { email, password }).then(res => {
+        if (res['name']) {
+          this.company = res as Company;
+          console.log('company');
+        } else {
+          this.person = res as Person;
+          console.log('person');
+        }
         this.loggedInStateSubject.next(true);
         resolve('success');
-      }, 1000);
+      }).catch(() => {
+        this.loggedInStateSubject.next(false);
+        reject('Invalid email or password.');
+      });
     });
   }
 
