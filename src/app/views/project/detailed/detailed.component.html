@@ -1,0 +1,27 @@
+<div *ngIf="project">
+  <div class="headline-wrapper">
+    <h1>{{ project.name }}</h1>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="column">
+      <div class="icon-row">
+        <mat-icon color="primary">business</mat-icon>
+        <span>{{ project.company.name }}</span>
+      </div>
+      <div class="icon-row">
+        <mat-icon>date_range</mat-icon>
+        <span>{{ project.startTime | date: 'dd.MM.yyyy' }} - {{ project.endTime | date: 'dd.MM.yyyy' }}</span>
+      </div>
+
+      <p>{{ project.description }}</p>
+    </div>
+
+    <div *ngIf="members" class="column">
+      <div *ngFor="let m of members" class="member icon-row">
+        <mat-icon color="primary">account_circle</mat-icon>
+        <span>{{ m.firstName }} {{ m.lastName }}</span>
+      </div>
+    </div>
+  </div>
+</div>
