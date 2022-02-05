@@ -13,5 +13,12 @@
     <mat-hint>Inactive</mat-hint>
     <mat-list-item *ngFor="let p of sortedProjects.inactive"
                    routerLink="/projects/{{ p.id }}">{{ p.name }}</mat-list-item>
+
+    <mat-divider *ngIf="isUserCompany()"></mat-divider>
+
+    <mat-list-item *ngIf="isUserCompany()" class="createProjectLink" routerLink="/projects/new">
+      <mat-icon>add</mat-icon>
+      <span>New Project</span>
+    </mat-list-item>
   </mat-list>
 </div>
