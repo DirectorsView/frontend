@@ -22,15 +22,10 @@ export class DetailedComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const id = Number(params['id']);
-      this.project = this.projectService.getProject(id);
 
-      if (!this.project) {
-        this.projectService.getProjects().subscribe(projects => {
-          this.project = projects.find(project => project.id === id) || null;
-        });
-
-        this.projectService.fetchProjects();
-      }
+      this.projectService.getProject(id).then(project => {
+        this.project = project;
+      });
 
       this.projectService.getProjectMembers(id).then(members => {
         this.members = members;
