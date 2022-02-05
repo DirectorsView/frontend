@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Project } from '../../models/models';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +12,7 @@ export class SidebarComponent implements OnInit, OnChanges {
   @Input() public projects: Project[] | null;
   public sortedProjects: SortedProjects | null;
 
-  constructor() {
+  constructor(private readonly auth: AuthService) {
     this.projects = null;
     this.sortedProjects = null;
   }
@@ -25,6 +26,10 @@ export class SidebarComponent implements OnInit, OnChanges {
     }
   }
 
+  public isUserCompany(): boolean {
+    return !!this.auth.company;
+  }
+
   public sortProjects(): SortedProjects {
     if (this.projects === null) {
       return { active: [], scheduled: [], inactive: [] };
@@ -35,7 +40,6 @@ export class SidebarComponent implements OnInit, OnChanges {
     const past: Project[] = [];
 
     this.projects.forEach((project: Project) => {
-
       if (Date.now() < project.endTime.getTime()
         && Date.now() > project.startTime.getTime()) {
         active.push(project);
