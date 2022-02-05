@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -14,7 +14,8 @@ export class SigninComponent implements OnInit {
   public responseMessage: string | null;
 
   constructor(private readonly auth: AuthService,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly route: ActivatedRoute) {
     this.formGroup = SigninComponent.createFormGroup();
     this.responseMessage = null;
   }
@@ -25,7 +26,14 @@ export class SigninComponent implements OnInit {
   public submit(): void {
     if (this.formGroup.valid) {
       this.auth.signIn(this.formGroup.value.email, this.formGroup.value.password).then(() => {
-        this.router.navigateByUrl('/');
+        this.route.queryParams.subscribe(value => {
+          if (value['redirectUrl']) {
+            this.router.navigateByUrl(value['redirectUrl'], { replaceUrl: true })
+              .catch(err => {
+                console.error(err);
+              });
+          }
+        });
       }).catch(message => {
         this.responseMessage = message;
       });
