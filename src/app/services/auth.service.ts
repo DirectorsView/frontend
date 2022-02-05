@@ -31,10 +31,8 @@ export class AuthService {
       this.backend.post<any>('/account/authenticate', { email, password }).then(res => {
         if (res['name']) {
           this.company = res as Company;
-          console.log('company');
         } else {
           this.person = res as Person;
-          console.log('person');
         }
         this.loggedInStateSubject.next(true);
         resolve('success');
