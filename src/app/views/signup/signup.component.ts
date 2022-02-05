@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -16,7 +16,8 @@ export class SignupComponent implements OnInit {
   public selectedOption: string;
 
   constructor(private readonly auth: AuthService,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly route: ActivatedRoute) {
     this.formGroup = SignupComponent.createFormGroup();
     this.responseMessage = null;
     this.selectOptions = [ 'Personal', 'Company' ];
@@ -26,6 +27,15 @@ export class SignupComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    if (this.auth.isLoggedIn) {
+      this.redirect();
+    }
+
+    this.auth.isLoggedInAsObservable.subscribe(state => {
+      if (state) {
+        this.redirect();
+      }
+    });
   }
 
   public submit(): void {
@@ -79,5 +89,14 @@ export class SignupComponent implements OnInit {
       this.formGroup.get('lastName')?.disable();
       this.formGroup.get('companyName')?.enable();
     }
+  }
+
+  private redirect(): void {
+    this.route.queryParams.subscribe(value => {
+      this.router.navigateByUrl(value['redirectUrl'], { replaceUrl: true })
+        .catch(err => {
+          console.error(err);
+        });
+    });
   }
 }

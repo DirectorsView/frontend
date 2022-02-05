@@ -21,22 +21,23 @@ export class SigninComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    if (this.auth.isLoggedIn) {
+      this.redirect();
+    }
+
+    this.auth.isLoggedInAsObservable.subscribe(state => {
+      if (state) {
+        this.redirect();
+      }
+    });
   }
 
   public submit(): void {
     if (this.formGroup.valid) {
-      this.auth.signIn(this.formGroup.value.email, this.formGroup.value.password).then(() => {
-        this.route.queryParams.subscribe(value => {
-          if (value['redirectUrl']) {
-            this.router.navigateByUrl(value['redirectUrl'], { replaceUrl: true })
-              .catch(err => {
-                console.error(err);
-              });
-          }
+      this.auth.signIn(this.formGroup.value.email, this.formGroup.value.password)
+        .catch(message => {
+          this.responseMessage = message;
         });
-      }).catch(message => {
-        this.responseMessage = message;
-      });
     }
   }
 
@@ -48,6 +49,15 @@ export class SigninComponent implements OnInit {
       password: new FormControl('', [
         Validators.required
       ])
+    });
+  }
+
+  private redirect(): void {
+    this.route.queryParams.subscribe(value => {
+      this.router.navigateByUrl(value['redirectUrl'], { replaceUrl: true })
+        .catch(err => {
+          console.error(err);
+        });
     });
   }
 }
