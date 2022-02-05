@@ -29,8 +29,16 @@ export class ProjectService {
     return this.projectsSubject;
   }
 
-  public getProject(id: number): Project | null {
-    return this.projectsSubject.value.find(project => project.id === id) || null;
+  public getProject(id: number): Promise<Project | null> {
+    const project = this.projectsSubject.value.find(project => project.id === id) || null;
+
+    if (project) {
+      return new Promise<Project>(resolve => {
+        resolve(project);
+      });
+    } else {
+      return this.backend.get<Project>(`/project/${ id }`);
+    }
   }
 
   public getProjectMembers(id: number): Promise<Person[]> {
