@@ -23,5 +23,9 @@
         <span>{{ m.firstName }} {{ m.lastName }}</span>
       </div>
     </div>
+
+    <div *ngIf="!members || members?.length === 0" class="column">
+      <mat-error>No members assigned yet</mat-error>
+    </div>
   </div>
 </div>
