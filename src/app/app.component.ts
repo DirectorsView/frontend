@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.projectService.fetchProjects();
     this.projectService.getProjects().subscribe(projects => this.projects = projects);
   }
 }
