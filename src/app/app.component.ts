@@ -18,6 +18,12 @@ export class AppComponent implements OnInit {
               private readonly projectService: ProjectService) {
     this.isLoggedIn = this.auth.isLoggedInAsObservable;
     this.projects = null;
+
+    this.isLoggedIn.subscribe(loggedIn => {
+      if (loggedIn) {
+        this.projectService.fetchProjects();
+      }
+    });
   }
 
   public ngOnInit(): void {
