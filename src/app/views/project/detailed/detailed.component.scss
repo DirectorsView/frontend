@@ -17,6 +17,12 @@
   }
 }
 
+.headline-wrapper {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
 .content-wrapper {
   display: flex;
   justify-content: flex-start;
@@ -25,6 +31,7 @@
   .column {
     width: 45%;
     height: 100%;
+    font-size: 1.5rem;
 
     &:nth-child(1) {
       margin: 0 5% 0 0;
@@ -36,7 +43,9 @@
 
       mat-icon {
         margin-right: .5rem;
-        font-size: 1.5rem;
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
       }
     }
   }
