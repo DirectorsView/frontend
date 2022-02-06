@@ -1,0 +1,33 @@
+@import "~src/assets/scss/page-content-wrapper.scss";
+
+:host {
+  flex-direction: column;
+}
+
+form {
+  width: fit-content;
+}
+
+mat-form-field {
+  margin-right: 3rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.description-wrapper mat-form-field {
+  width: 100%;
+  margin-top: 1rem;
+
+  textarea {
+    height: 10rem;
+  }
+}
+
+.button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
