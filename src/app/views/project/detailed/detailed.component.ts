@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Person, Project } from '../../../models/models';
 import { MatDialog } from '@angular/material/dialog';
 import { EditComponent } from '../edit/edit.component';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-detailed',
@@ -48,5 +49,15 @@ export class DetailedComponent implements OnInit {
         });
       }
     });
+  }
+
+  public addToCalendar(): void {
+    if (this.project) {
+      const startDate = new Date(this.project.startTime);
+      let endDate = new Date(this.project.endTime);
+      endDate.setDate(endDate.getDate() + 1);
+      const url = `https://calendar.google.com/calendar/u/0/r/eventedit?text=${ this.project.name }&dates=${ formatDate(startDate, 'yyyyMMdd', 'en') }/${ formatDate(endDate, 'yyyyMMdd', 'en') }&details=${ this.project.description }`;
+      window.open(url, '_blank');
+    }
   }
 }
