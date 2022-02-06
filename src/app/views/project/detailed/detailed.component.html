@@ -1,6 +1,12 @@
 <div *ngIf="project">
   <div class="headline-wrapper">
     <h1>{{ project.name }}</h1>
+
+    <div class="icon-wrapper">
+      <button mat-icon-button>
+        <mat-icon (click)="edit()" color="primary">edit</mat-icon>
+      </button>
+    </div>
   </div>
 
   <div class="content-wrapper">
@@ -10,7 +16,7 @@
         <span>{{ project.company.name }}</span>
       </div>
       <div class="icon-row">
-        <mat-icon>date_range</mat-icon>
+        <mat-icon color="primary">date_range</mat-icon>
         <span>{{ project.startTime | date: 'dd.MM.yyyy' }} - {{ project.endTime | date: 'dd.MM.yyyy' }}</span>
       </div>
 
