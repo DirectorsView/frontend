@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../services/project.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Person, Project } from '../../../models/models';
 import { MatDialog } from '@angular/material/dialog';
 import { EditComponent } from '../edit/edit.component';
@@ -18,6 +18,7 @@ export class DetailedComponent implements OnInit {
 
   constructor(private readonly projectService: ProjectService,
               private readonly route: ActivatedRoute,
+              private readonly router: Router,
               private readonly dialog: MatDialog) {
     this.project = null;
     this.members = null;
@@ -58,6 +59,14 @@ export class DetailedComponent implements OnInit {
       endDate.setDate(endDate.getDate() + 1);
       const url = `https://calendar.google.com/calendar/u/0/r/eventedit?text=${ this.project.name }&dates=${ formatDate(startDate, 'yyyyMMdd', 'en') }/${ formatDate(endDate, 'yyyyMMdd', 'en') }&details=${ this.project.description }`;
       window.open(url, '_blank');
+    }
+  }
+
+  public delete(): void {
+    if (this.project) {
+      this.projectService.deleteProject(this.project.id).then(() => {
+        this.router.navigate([ '/projects' ]);
+      });
     }
   }
 }
