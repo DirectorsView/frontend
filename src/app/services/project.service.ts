@@ -72,4 +72,14 @@ export class ProjectService {
       resolve(project);
     });
   }
+
+  public deleteProject(id: number): Promise<void> {
+    return new Promise<void>(resolve => {
+      this.backend.delete<void>(`/project/${ id }`).then(() => {
+        this.projectsSubject.next([ ...this.projectsSubject.value.filter(p => p.id !== id) ]);
+      });
+
+      resolve();
+    });
+  }
 }
