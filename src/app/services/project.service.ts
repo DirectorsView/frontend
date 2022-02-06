@@ -60,4 +60,16 @@ export class ProjectService {
       resolve(project);
     });
   }
+
+  public updateProject(project: Project): Promise<Project> {
+    return new Promise<Project>(resolve => {
+      this.backend.put<Project>(`/project/${ project.id }`, project).then(project => {
+        project.startTime = new Date(project.startTime);
+        project.endTime = new Date(project.endTime);
+        this.projectsSubject.next([ ...this.projectsSubject.value.filter(p => p.id !== project.id), project ]);
+      });
+
+      resolve(project);
+    });
+  }
 }
