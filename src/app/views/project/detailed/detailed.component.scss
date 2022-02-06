@@ -1,6 +1,9 @@
 @import "~src/assets/scss/page-content-wrapper.scss";
 
 .headline-wrapper {
+  display: flex;
+  justify-content: space-between;
+
   h1 {
     font-size: 2rem;
   }
