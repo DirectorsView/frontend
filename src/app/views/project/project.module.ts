@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
   {
@@ -31,7 +33,8 @@ const routes: Routes = [
   declarations: [
     ProjectComponent,
     DetailedComponent,
-    NewComponent
+    NewComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +45,8 @@ const routes: Routes = [
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ]
 })
 export class ProjectModule {
