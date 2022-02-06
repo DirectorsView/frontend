@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../services/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { Person, Project } from '../../../models/models';
+import { MatDialog } from '@angular/material/dialog';
+import { EditComponent } from '../edit/edit.component';
 
 @Component({
   selector: 'app-detailed',
@@ -14,7 +16,8 @@ export class DetailedComponent implements OnInit {
   public members: Person[] | null;
 
   constructor(private readonly projectService: ProjectService,
-              private readonly route: ActivatedRoute) {
+              private readonly route: ActivatedRoute,
+              private readonly dialog: MatDialog) {
     this.project = null;
     this.members = null;
   }
@@ -30,6 +33,20 @@ export class DetailedComponent implements OnInit {
       this.projectService.getProjectMembers(id).then(members => {
         this.members = members;
       });
+    });
+  }
+
+  public edit(): void {
+    const dialogRef = this.dialog.open(EditComponent, {
+      data: this.project
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.projectService.updateProject(result).then(() => {
+          this.project = result;
+        });
+      }
     });
   }
 }
