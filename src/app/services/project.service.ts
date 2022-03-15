@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Person, Project } from '../models/models';
+import { Employee, Person, Project } from '../models/models';
 import { BackendService } from './backend.service';
 import { AuthService } from './auth.service';
 
@@ -55,9 +55,9 @@ export class ProjectService {
         project.startTime = new Date(project.startTime);
         project.endTime = new Date(project.endTime);
         this.projectsSubject.next([ ...this.projectsSubject.value, project ]);
-      });
 
-      resolve(project);
+        resolve(project);
+      });
     });
   }
 
@@ -81,5 +81,11 @@ export class ProjectService {
 
       resolve();
     });
+  }
+
+  public addMember(projectId: number, memberId: number): Promise<Employee> {
+    console.log(projectId, memberId);
+    console.log(`/project/${ projectId }/members`);
+    return this.backend.post<Employee>(`/project/${ projectId }/members?personId=${ memberId }`, {});
   }
 }
