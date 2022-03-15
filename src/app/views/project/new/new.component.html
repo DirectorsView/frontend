@@ -2,34 +2,59 @@
   <h1>Create a Project</h1>
 
   <form (ngSubmit)="create()" [formGroup]="formGroup">
-    <div>
-      <mat-form-field>
-        <mat-label>Project Name</mat-label>
-        <input formControlName="name" matInput name="projectName">
-        <mat-error *ngIf="formGroup.get('name')?.hasError('required')">Project Name must not be empty</mat-error>
-      </mat-form-field>
+    <div class="form-content-wrapper">
+      <div class="details-wrapper">
+        <div class="details">
+          <mat-form-field>
+            <mat-label>Project Name</mat-label>
+            <input formControlName="name" matInput name="projectName">
+            <mat-error *ngIf="formGroup.get('name')?.hasError('required')">Project Name must not be empty</mat-error>
+          </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Choose a date range</mat-label>
-        <mat-date-range-input [rangePicker]="picker" formGroupName="date">
-          <input formControlName="startDate" matStartDate placeholder="Start date">
-          <input formControlName="endDate" matEndDate placeholder="End date">
-        </mat-date-range-input>
+          <mat-form-field>
+            <mat-label>Choose a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker" formGroupName="date">
+              <input formControlName="startDate" matStartDate placeholder="Start date">
+              <input formControlName="endDate" matEndDate placeholder="End date">
+            </mat-date-range-input>
 
-        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
+            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
 
-        <mat-error *ngIf="formGroup.get('date.startDate')?.hasError('required')">Date range must not be empty
-        </mat-error>
-      </mat-form-field>
-    </div>
+            <mat-error *ngIf="formGroup.get('date.startDate')?.hasError('required')">Date range must not be empty
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-    <div class="description-wrapper">
-      <mat-form-field>
-        <mat-label>Description</mat-label>
-        <textarea formControlName="description" matInput name="description"></textarea>
-        <mat-error *ngIf="formGroup.get('description')?.hasError('required')">Description must not be empty</mat-error>
-      </mat-form-field>
+        <div class="description-wrapper">
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea formControlName="description" matInput name="description"></textarea>
+            <mat-error *ngIf="formGroup.get('description')?.hasError('required')">Description must not be empty
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="employee-wrapper">
+        <mat-form-field>
+          <mat-label>Add employees</mat-label>
+          <mat-select (selectionChange)="selectionChange($event.value)">
+            <mat-option *ngFor="let e of employees"
+                        [value]="e">{{ e.firstName }} {{ e.lastName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="selected-wrapper">
+          <div *ngFor="let e of selectedEmployees" class="selected-employee">
+            <mat-icon color="primary">account_circle</mat-icon>
+            <span>{{ e.firstName}} {{ e.lastName}}</span>
+            <button (click)="removeEmployee(e)" mat-icon-button type="button">
+              <mat-icon color="accent">clear</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="button-wrapper">
