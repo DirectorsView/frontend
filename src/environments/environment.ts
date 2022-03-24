@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://directorsview.eu'
+  baseUrl: 'http://directorsview.eu',
+  wsUrl: 'ws://directorsview.eu/chat-ws'
 };
 
 /*
