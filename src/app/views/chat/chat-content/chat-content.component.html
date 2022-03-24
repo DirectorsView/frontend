@@ -1,0 +1,14 @@
+<header>
+  <div class="user-icon">{{ chat.name[0] }}</div>
+  <span>{{ chat.name }}</span>
+</header>
+
+<div *ngFor="let m of chat.messages">
+  <div [class]="m.source.id !== selfId ? 'other' : 'self'" class="row">
+    <div [class]="m.source.id !== selfId ? 'tri-left' : 'tri-right'" class="message">
+      <span>{{ m.content }}</span>
+    </div>
+
+    <span class="time">{{ m.time | date: 'hh:mm' }}</span>
+  </div>
+</div>
