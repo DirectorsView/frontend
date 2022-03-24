@@ -20,10 +20,16 @@ $directorsview-theme: mat.define-light-theme((
 
 :root {
   --primary-color: #119da4;
+  --secondary-color: #71babf;
+  --tertiary-color: #df8f8d;
   --accent-color: #c3423f;
   --black: #080708;
   --box-shadow: 1px 1px 9px 0 #dbdbdb;
   --border-radius: 5px;
+}
+
+* {
+  outline: none;
 }
 
 body {
