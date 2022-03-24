@@ -1,0 +1,32 @@
+<div class="content-wrapper">
+  <div *ngIf="chats" class="chat-list">
+    <div (click)="selectChat(c)" *ngFor="let c of chats" [class.active]="selectedChat?.id === c.id" class="chat-item">
+      <span class="chat-name">{{ c.name }}</span>
+      <span class="last-message">{{ c.messages[c.messages.length - 1].content }}</span>
+      <hr>
+    </div>
+
+    <div class="chat-item">
+      <button color="primary" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="chat-window">
+    <div class="messages-wrapper">
+      <app-chat-content *ngIf="selectedChat && selfId" [chat]="selectedChat" [selfId]="selfId"></app-chat-content>
+    </div>
+
+    <div class="input-wrapper">
+      <mat-form-field>
+        <mat-label>Type a message...</mat-label>
+        <input (keydown.enter)="sendMessage()" [(ngModel)]="message" autocomplete="off" matInput>
+      </mat-form-field>
+
+      <button (click)="sendMessage()" color="primary" mat-raised-button>
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
