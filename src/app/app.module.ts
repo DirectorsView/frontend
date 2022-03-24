@@ -12,13 +12,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UnderConstructionComponent } from './components/under-construction/under-construction.component';
+import { ChatSelectionComponent } from './views/chat/chat-selection.component';
+import { ChatModule } from './views/chat/chat.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     NavComponent,
-    UnderConstructionComponent
+    UnderConstructionComponent,
+    ChatSelectionComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +33,11 @@ import { UnderConstructionComponent } from './components/under-construction/unde
     BrowserAnimationsModule,
     MatIconModule,
     MatListModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    ChatModule,
+    MatButtonModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [ { provide: LocationStrategy, useClass: HashLocationStrategy } ],
   bootstrap: [ AppComponent ]

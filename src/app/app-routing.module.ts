@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'chats',
-    component: UnderConstructionComponent,
+    loadChildren: () => import('./views/chat/chat.module').then(m => m.ChatModule),
     canActivate: [ AuthGuard ]
   },
   {
