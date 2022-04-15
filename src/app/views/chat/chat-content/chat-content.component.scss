@@ -1,12 +1,22 @@
 :host {
-  display: block;
   width: 90%;
+  height: 100%;
   padding: 0 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 header {
   width: 100%;
-  padding: 1rem 0;
+  height: 10%;
+  margin: 1% 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -31,8 +41,8 @@ header {
 }
 
 .messages {
-  display: flex;
-  flex-direction: column;
+  height: 90%;
+  overflow-y: scroll;
 }
 
 .row {

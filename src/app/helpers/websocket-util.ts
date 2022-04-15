@@ -32,7 +32,8 @@ export class WebSocketUtil<T> {
   public connect(token: string, accountId: number): void {
     this.socket = webSocket({
       url: `${ environment.wsUrl }/${ token }/${ accountId }`,
-      deserializer: msg => msg.data
+      deserializer: msg => msg.data,
+      serializer: msg => String(msg)
     });
 
     this.socket.subscribe({

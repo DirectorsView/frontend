@@ -28,6 +28,10 @@ export class ChatSelectionComponent implements OnInit {
       this.chats = value;
       this.selectedChat = this.chats[0];
     });
+
+    this.chat.getChats().subscribe(value => {
+      this.chats = value;
+    });
   }
 
   public selectChat(chat: Chat): void {
@@ -37,6 +41,7 @@ export class ChatSelectionComponent implements OnInit {
   public sendMessage(): void {
     if (this.message.trim().length > 0) {
       this.chat.sendMessage(this.selectedChat!.id, this.message);
+      this.message = '';
     }
   }
 }

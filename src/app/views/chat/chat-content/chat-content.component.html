@@ -3,12 +3,15 @@
   <span>{{ chat.name }}</span>
 </header>
 
-<div *ngFor="let m of chat.messages">
-  <div [class]="m.source.id !== selfId ? 'other' : 'self'" class="row">
-    <div [class]="m.source.id !== selfId ? 'tri-left' : 'tri-right'" class="message">
-      <span>{{ m.content }}</span>
-    </div>
+<div #messages class="messages">
+  <div *ngFor="let m of chat.messages">
+    <div [class]="m.source.id !== selfId ? 'other' : 'self'" class="row">
+      <div [class]="m.source.id !== selfId ? 'tri-left' : 'tri-right'" class="message">
+        <span>{{ m.content }}</span>
+      </div>
 
-    <span class="time">{{ m.time | date: 'hh:mm' }}</span>
+      <span class="time">{{ m.time | date: 'hh:mm' }}</span>
+    </div>
   </div>
+
 </div>

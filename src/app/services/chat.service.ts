@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AccountResponse, Chat, Message, ResponseChat } from '../models/models';
+import { AccountResponse, Chat, Company, Message, Person, ResponseChat } from '../models/models';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { BackendService } from './backend.service';
 import { AuthService } from './auth.service';
@@ -12,11 +12,13 @@ export class ChatService {
 
   private readonly chatsSubject: BehaviorSubject<Chat[]>;
   private readonly websockets: WebSocket[];
+  private selfAccount: AccountResponse | null;
 
   constructor(private readonly backend: BackendService,
               private readonly auth: AuthService) {
     this.chatsSubject = new BehaviorSubject<Chat[]>([]);
     this.websockets = [];
+    this.selfAccount = null;
   }
 
   public fetchChats(): Promise<Chat[]> {
@@ -29,16 +31,29 @@ export class ChatService {
 
       for (const c of responseChats) {
         const otherAccount: AccountResponse = c.account2.id === selfId ? c.account1 : c.account2;
-        const selfAccount: AccountResponse = c.account2.id === selfId ? c.account2 : c.account1;
         const name: string = otherAccount.name ? otherAccount.name : `${ otherAccount.firstName } ${ otherAccount.lastName }`;
-
         const messages = await this.backend.get<Message[]>(`/chat/${ c.id }/messages`);
-        const ws = new WebSocket(c.token, selfAccount.id);
 
-        console.log(c.token, selfAccount.id);
+        this.selfAccount = c.account2.id === selfId ? c.account2 : c.account1;
 
-        ws.connect().subscribe(message => {
-          console.log(message);
+        const ws = new WebSocket(c.token, this.selfAccount.id);
+
+        ws.connect().subscribe(msg => {
+          const message: Message = JSON.parse(msg) as Message;
+
+          if (message.source.id !== this.selfAccount!.id) {
+            chats.find(c => c.id === message.chat?.id)!.messages.push({
+              id: Date.now(),
+              time: new Date(),
+              content: message.content,
+              source: otherAccount as (Person | Company)
+            });
+
+            console.log(message);
+            console.log(chats);
+
+            this.chatsSubject.next(chats);
+          }
         });
 
         this.websockets[c.id] = ws;
@@ -73,7 +88,20 @@ export class ChatService {
 
   public sendMessage(chatId: number, message: string): void {
     const ws = this.websockets[chatId];
+    const chats = this.chatsSubject.getValue();
+
+    console.log(message);
+
     ws.sendMessage(message);
+
+    chats.find(c => c.id === chatId)!.messages.push({
+      id: Date.now(),
+      time: new Date(),
+      content: message,
+      source: this.selfAccount as (Person | Company)
+    });
+
+    this.chatsSubject.next(chats);
   }
 }
 

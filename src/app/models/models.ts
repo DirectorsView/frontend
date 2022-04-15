@@ -53,7 +53,7 @@ export interface Message {
   source: Person | Company,
   content: string,
   time: Date,
-  chat: ResponseChat
+  chat?: ResponseChat
 }
 
 export interface AccountResponse extends Account, Person, Company {
