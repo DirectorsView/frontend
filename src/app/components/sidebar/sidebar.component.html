@@ -6,13 +6,19 @@
     <mat-list-item *ngFor="let p of sortedProjects.active"
                    routerLink="/projects/{{ p.id }}">{{ p.name }}</mat-list-item>
 
+    <mat-error *ngIf="sortedProjects.active.length === 0">No active Projects found</mat-error>
+
     <mat-hint>Scheduled</mat-hint>
     <mat-list-item *ngFor="let p of sortedProjects.scheduled"
                    routerLink="/projects/{{ p.id }}">{{ p.name }}</mat-list-item>
 
+    <mat-error *ngIf="sortedProjects.scheduled.length === 0">No scheduled Projects found</mat-error>
+
     <mat-hint>Inactive</mat-hint>
     <mat-list-item *ngFor="let p of sortedProjects.inactive"
                    routerLink="/projects/{{ p.id }}">{{ p.name }}</mat-list-item>
+
+    <mat-error *ngIf="sortedProjects.inactive.length === 0">No inactive Projects found</mat-error>
 
     <mat-divider *ngIf="isUserCompany()"></mat-divider>
 

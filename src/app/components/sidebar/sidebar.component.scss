@@ -9,6 +9,17 @@
   }
 }
 
+mat-hint, mat-error {
+  &:after {
+    content: '\000A';
+    white-space: pre;
+  }
+}
+
+mat-error {
+  font-size: .75em;
+}
+
 mat-list-item {
   border-radius: 15px;
   box-shadow: var(--box-shadow);
