@@ -1,0 +1,19 @@
+<div id="content-wrapper">
+  <div *ngIf="vacancy" class="vacancy">
+    <h2>{{ vacancy.title }}</h2>
+
+    <div>
+      <mat-icon color="accent">business</mat-icon>
+      <span>{{ vacancy.company.name }}</span>
+    </div>
+
+    <div>
+      <mat-icon color="accent">date_range</mat-icon>
+      <span>{{ vacancy.deadline | date : 'dd.MM.yyyy' }}</span>
+    </div>
+
+    <p>{{ vacancy.description }}</p>
+
+    <button (click)="apply(vacancy.id)" color="primary" mat-raised-button>Apply</button>
+  </div>
+</div>

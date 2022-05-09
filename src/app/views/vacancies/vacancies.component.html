@@ -1,0 +1,15 @@
+<div id="content-wrapper">
+  <div *ngFor="let v of vacancies" [routerLink]="v.id.toString()" class="vacancy">
+    <h2>{{ v.title }}</h2>
+
+    <div>
+      <mat-icon color="accent">business</mat-icon>
+      <span>{{ v.company.name }}</span>
+    </div>
+
+    <div>
+      <mat-icon color="accent">date_range</mat-icon>
+      <span>{{ v.deadline | date : 'dd.MM.yyyy' }}</span>
+    </div>
+  </div>
+</div>

@@ -58,3 +58,13 @@ export interface Message {
 
 export interface AccountResponse extends Account, Person, Company {
 }
+
+export interface Vacancy {
+  id: number,
+  title: string
+  description: string,
+  opened: boolean,
+  deadline: Date,
+  project: Project,
+  company: Company,
+}

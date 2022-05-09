@@ -25,8 +25,8 @@ const routes: Routes = [
     canActivate: [ AuthGuard ]
   },
   {
-    path: 'jobmarket',
-    component: UnderConstructionComponent,
+    path: 'vacancies',
+    loadChildren: () => import('./views/vacancies/vacancies.module').then(m => m.VacanciesModule),
     canActivate: [ AuthGuard ]
   },
   {

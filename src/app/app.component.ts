@@ -19,6 +19,8 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = this.auth.isLoggedInAsObservable;
     this.projects = null;
 
+    this.auth.signIn('company@mail.com', 'password');
+
     this.isLoggedIn.subscribe(loggedIn => {
       if (loggedIn) {
         this.projectService.fetchProjects();

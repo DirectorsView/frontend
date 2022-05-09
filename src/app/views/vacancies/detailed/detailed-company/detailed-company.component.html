@@ -1,0 +1,35 @@
+<div *ngIf="vacancy" id="content-wrapper">
+  <div class="column-1">
+    <h2>{{ vacancy.title }}</h2>
+
+    <div>
+      <mat-icon color="accent">business</mat-icon>
+      <span>{{ vacancy.company.name }}</span>
+    </div>
+
+    <div>
+      <mat-icon color="accent">date_range</mat-icon>
+      <span>{{ vacancy.deadline | date : 'dd.MM.yyyy' }}</span>
+    </div>
+
+    <p>{{ vacancy.description }}</p>
+  </div>
+
+  <div *ngIf="applicants" class="column-2">
+    <h3>Applicants</h3>
+    <div *ngFor="let a of applicants" class="applicant">
+      <mat-icon color="primary">account_circle</mat-icon>
+      <span>{{ a.firstName }} {{ a.lastName }}</span>
+
+      <div>
+        <button (click)="accept(a)" mat-icon-button>
+          <mat-icon color="primary">check</mat-icon>
+        </button>
+
+        <button (click)="decline(a)" mat-icon-button>
+          <mat-icon color="warn">close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -37,6 +37,9 @@ const routes: Routes = [
     NewComponent,
     EditComponent
   ],
+  exports: [
+    DetailedComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
