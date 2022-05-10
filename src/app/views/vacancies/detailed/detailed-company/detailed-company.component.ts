@@ -48,6 +48,30 @@ export class DetailedCompanyComponent implements OnInit {
           { duration: 4000 }
         );
       })
-      .catch();
+      .catch(() => {
+        this.snackBar.open(
+          `An unexpected error occurred.`,
+          'OK',
+          { duration: 3000 }
+        );
+      });
+  }
+
+  public delete(vacancy: Vacancy): void {
+    this.vacancyService.deleteVacancy(vacancy.id).then(() => {
+      this.router.navigate([ '/vacancies' ]);
+
+      this.snackBar.open(
+        `Vacancy "${ vacancy.title }" deleted.`,
+        'OK',
+        { duration: 4000 }
+      );
+    }).catch(() => {
+      this.snackBar.open(
+        `An unexpected error occurred.`,
+        'OK',
+        { duration: 3000 }
+      );
+    });
   }
 }

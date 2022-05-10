@@ -1,7 +1,20 @@
-<div *ngIf="vacancy" id="content-wrapper">
-  <div class="column-1">
+<div *ngIf="vacancy" class="content-wrapper">
+  <div class="headline-wrapper">
     <h2>{{ vacancy.title }}</h2>
 
+    <div class="icon-wrapper">
+      <button mat-icon-button>
+        <mat-icon color="primary">edit</mat-icon>
+      </button>
+
+      <button mat-icon-button>
+        <mat-icon (click)="delete(vacancy)" color="primary">delete</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="column-1">
     <div>
       <mat-icon color="accent">business</mat-icon>
       <span>{{ vacancy.company.name }}</span>
@@ -15,8 +28,9 @@
     <p>{{ vacancy.description }}</p>
   </div>
 
-  <div *ngIf="applicants" class="column-2">
+  <div class="column-2">
     <h3>Applicants</h3>
+    <mat-error *ngIf="!applicants || applicants.length === 0">No applicants found for this vacancy</mat-error>
     <div *ngFor="let a of applicants" class="applicant">
       <mat-icon color="primary">account_circle</mat-icon>
       <span>{{ a.firstName }} {{ a.lastName }}</span>

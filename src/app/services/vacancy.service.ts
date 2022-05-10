@@ -59,4 +59,8 @@ export class VacancyService {
   public acceptApplicant(projectId: number, personId: number): Promise<Person> {
     return this.backend.post<Person>(`/project/${ projectId }/members?personId=${ personId }`, null);
   }
+
+  public deleteVacancy(id: number): Promise<void> {
+    return this.backend.delete(`/vacancy/${ id }`);
+  }
 }

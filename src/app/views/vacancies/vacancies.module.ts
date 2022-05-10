@@ -8,6 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DetailedUserComponent } from './detailed/detailed-user/detailed-user.component';
 import { DetailedCompanyComponent } from './detailed/detailed-company/detailed-company.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const routes: Routes = [
   {
@@ -32,7 +33,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatIconModule,
     MatSnackBarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule
   ]
 })
 export class VacanciesModule {
